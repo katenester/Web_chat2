@@ -22,7 +22,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	}
 	router.GET("/chats", h.getAllChats)
 	router.POST("/chat/:user_name", h.createChat)
-	router.POST("/chats/messages/:user_name", h.sendMessage)
 	router.GET("/chats/messages/:user_name", h.getAllMessage)
+	router.POST("/chats/messages/:user_name", h.sendMessage)
 	return router
 }

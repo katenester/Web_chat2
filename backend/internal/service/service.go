@@ -1,39 +1,36 @@
 package service
 
-//go:generate mockgen -source=service.go -destination=mocks/mock.go
+import (
+	"github.com/katenester/Web_chat2/backend/internal/models"
+	"github.com/katenester/Web_chat2/backend/internal/repository"
+)
 
 type Authorization interface {
-	CreateUser(user models.User) (int, error)
+	CreateUser(user models.User) error
 	GenerateToken(username, password string) (string, error)
 	ParseToken(token string) (int, error)
 }
 
-type TodoList interface {
-	Create(userId int, list models.TodoList) (int, error)
-	GetAll(userId int) ([]models.TodoList, error)
-	GetById(userId int, listId int) (models.TodoList, error)
-	Delete(userId int, listId int) error
-	Update(userId int, listId int, list models.TodoListInput) error
+type Chat interface {
+	Create(userId int, chat models.Chat) error
+	GetAll(userId int) ([]models.Chat, error)
 }
 
-type TodoItem interface {
-	Create(userId, listId int, item models.TodoItem) (int, error)
-	GetAll(userId int, listId int) ([]models.TodoItem, error)
-	GetById(userId int, itemId int) (models.TodoItem, error)
-	Delete(userId int, itemId int) error
-	Update(userId int, itemId int, item models.TodoItemInput) error
+type Message interface {
+	GetMessage(userId int, friendId int) ([]models.Message, error)
+	Send(userId, friendId int, message models.Message) error
 }
 
 type Service struct {
 	Authorization
-	TodoList
-	TodoItem
+	Chat
+	Message
 }
 
 func NewService(repos *repository.Repository) *Service {
 	return &Service{
 		Authorization: NewAuthService(repos.Authorization),
-		TodoList:      NewTodoListService(repos.TodoList),
-		TodoItem:      NewTodoItemService(repos.TodoItem, repos.TodoList),
+		Chat:          NewTodoListService(repos.TodoList),
+		Message:       NewTodoItemService(repos.TodoItem, repos.TodoList),
 	}
 }
