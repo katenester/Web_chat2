@@ -30,7 +30,7 @@ type Service struct {
 func NewService(repos *repository.Repository) *Service {
 	return &Service{
 		Authorization: NewAuthService(repos.Authorization),
-		Chat:          NewTodoListService(repos.TodoList),
-		Message:       NewTodoItemService(repos.TodoItem, repos.TodoList),
+		Chat:          NewTodoListService(repos.Chat),
+		Message:       NewTodoItemService(repos.Message),
 	}
 }

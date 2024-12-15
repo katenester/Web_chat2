@@ -5,8 +5,8 @@ import (
 	"errors"
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
-	todo "github.com/katenester/Todo/internal/models"
-	"github.com/katenester/Todo/internal/repository"
+	"github.com/katenester/Web_chat2/backend/internal/models"
+	"github.com/katenester/Web_chat2/backend/internal/repository"
 	"time"
 )
 
@@ -28,7 +28,7 @@ func NewAuthService(repo repository.Authorization) *AuthService {
 	return &AuthService{repo}
 }
 
-func (s *AuthService) CreateUser(user todo.User) (int, error) {
+func (s *AuthService) CreateUser(user models.User) error {
 	user.Password = generatePasswordHash(user.Password)
 	return s.repo.CreateUser(user)
 }
