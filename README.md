@@ -1,6 +1,6 @@
 # Web_chat2
 
-1. Регистрация нового пользователя. POST /register
+1. Регистрация нового пользователя. POST /auth/register
 Запрос: json
 {
 "username": "user1",
@@ -17,7 +17,7 @@ json
 {
 "error": "Username already exists or invalid data"
 }
-2. POST /login Аутентификация пользователя и получение токена.
+2. POST /auth/login Аутентификация пользователя и получение токена.
 
 Запрос: json
 {
@@ -53,7 +53,7 @@ json
 }
 ]
 # 401 Unauthorized — пользователь не аутентифицирован.
-4. Создание нового чата между двумя пользователями POST /chat/:{user_name}
+4. Создание нового чата между двумя пользователями POST /chat/:user_name
    Заголовок
 - Bearer Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjgxOTUwOTcsImlhdCI6MTcyODE1MTg5NywidXNlcl9pZCI6MX0.ZPqAiu0edno2Z08VEpjNfMmJ2Dg22KhS2ZPSEHaqKDo
 
@@ -65,7 +65,7 @@ json
 "error": "Chat already exists or invalid user"
 }
 
-5. Отправка сообщения в чат. POST /chats/{user_name}/messages
+5. Отправка сообщения в чат. POST /chats/messages/:user_name
    Заголовок
 - Bearer Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjgxOTUwOTcsImlhdCI6MTcyODE1MTg5NywidXNlcl9pZCI6MX0.ZPqAiu0edno2Z08VEpjNfMmJ2Dg22KhS2ZPSEHaqKDo
 Запрос:
@@ -83,7 +83,7 @@ json
 }
 # 401 Unauthorized — пользователь не аутентифицирован.
 
-6. Получение всех сообщений из чата. GET /chats/messages/{:user_name}
+6. Получение всех сообщений из чата. GET /chats/messages/:user_name
    Заголовок
 - Bearer Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjgxOTUwOTcsImlhdCI6MTcyODE1MTg5NywidXNlcl9pZCI6MX0.ZPqAiu0edno2Z08VEpjNfMmJ2Dg22KhS2ZPSEHaqKDo
 Ответы:
