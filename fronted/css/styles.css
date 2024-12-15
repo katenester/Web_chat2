@@ -5,7 +5,7 @@ body {
   flex-direction: column;
   align-items: center;
   height: 100vh;
-  background-color: #1a1a2e;
+  background-color: #61baf1;
   font-family: 'Arial', sans-serif;
   color: #f4f4f9;
 }
@@ -21,7 +21,7 @@ body {
 .header h1 {
   font-size: 4rem;
   margin: 0;
-  color: #e94560;
+  color: #3612e7;
 }
 
 .main-container {
@@ -39,7 +39,7 @@ body {
 .auth-area button {
   padding: 15px 30px;
   font-size: 1.8rem;
-  background-color: #e94560;
+  background-color: #3612e7;
   color: #f4f4f9;
   border: none;
   border-radius: 8px;
@@ -49,7 +49,7 @@ body {
 }
 
 .auth-area button:hover {
-  background-color: #a5274b;
+  background-color: #3612e7;
 }
 
 .auth-area #user-box {
@@ -57,7 +57,7 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 25px;
-  background-color: #16213e;
+  background-color: #61baf1;
   border-radius: 15px;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.7);
 }
@@ -65,7 +65,7 @@ body {
 .auth-area #username-display {
   font-size: 2.2rem;
   margin-bottom: 10px;
-  color: #e94560;
+  color: #3612e7;
 }
 
 .auth-area #signout-link {
@@ -92,7 +92,7 @@ body {
   font-size: 1.4rem;
   border-radius: 5px;
   border: none;
-  background-color: #16213e;
+  background-color: #61baf1;
   color: #f4f4f9;
 }
 
@@ -100,7 +100,7 @@ body {
   padding: 10px 20px;
   font-size: 1.4rem;
   margin: 5px;
-  background-color: #e94560;
+  background-color: #3612e7;
   color: #f4f4f9;
   border: none;
   border-radius: 5px;
@@ -109,5 +109,5 @@ body {
 }
 
 #chat-setup button:hover {
-  background-color: #a5274b;
+  background-color: #3612e7;
 }
