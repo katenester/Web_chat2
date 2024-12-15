@@ -17,12 +17,15 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
 	auth := router.Group("/auth")
 	{
-		auth.POST("/register", h.sigUp)
+		auth.POST("/register", h.Register)
 		auth.POST("/login", h.sigIp)
 	}
-	router.GET("/chats", h.getAllChats)
-	router.POST("/chat/:user_name", h.createChat)
-	router.GET("/chats/messages/:user_name", h.getAllMessage)
-	router.POST("/chats/messages/:user_name", h.sendMessage)
+	api := router.Group("/chat", h.userIdentity)
+	{
+		api.GET("/", h.getAllChats)
+		api.POST("/:user_name", h.createChat)
+		api.GET("/messages/:user_name", h.getAllMessage)
+		api.POST("/messages/:user_name", h.sendMessage)
+	}
 	return router
 }

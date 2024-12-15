@@ -15,7 +15,11 @@ json
 # 400 Bad Request — имя пользователя уже существует или данные неверны.
 json
 {
-"error": "Username already exists or invalid data"
+"message": "Username already exists or invalid data"
+}
+# 500 StatusInternalServerError — ошибка на сервере
+{
+"message": "User registered successfully"
 }
 2. POST /auth/login Аутентификация пользователя и получение токена.
 
@@ -35,8 +39,11 @@ json
 {
 "error": "Invalid username or password"
 }
-
-3. Получение списка чатов пользователя. GET /chats
+# 500 StatusInternalServerError — ошибка на сервере
+{
+"error": "Invalid username or password"
+}
+3. Получение списка чатов пользователя. GET /chat
   Заголовок 
   - Bearer Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjgxOTUwOTcsImlhdCI6MTcyODE1MTg5NywidXNlcl9pZCI6MX0.ZPqAiu0edno2Z08VEpjNfMmJ2Dg22KhS2ZPSEHaqKDo
 Ответы:
@@ -65,7 +72,7 @@ json
 "error": "Chat already exists or invalid user"
 }
 
-5. Отправка сообщения в чат. POST /chats/messages/:user_name
+5. Отправка сообщения в чат. POST /chat/messages/:user_name
    Заголовок
 - Bearer Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjgxOTUwOTcsImlhdCI6MTcyODE1MTg5NywidXNlcl9pZCI6MX0.ZPqAiu0edno2Z08VEpjNfMmJ2Dg22KhS2ZPSEHaqKDo
 Запрос:
@@ -83,7 +90,7 @@ json
 }
 # 401 Unauthorized — пользователь не аутентифицирован.
 
-6. Получение всех сообщений из чата. GET /chats/messages/:user_name
+6. Получение всех сообщений из чата. GET /chat/messages/:user_name
    Заголовок
 - Bearer Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjgxOTUwOTcsImlhdCI6MTcyODE1MTg5NywidXNlcl9pZCI6MX0.ZPqAiu0edno2Z08VEpjNfMmJ2Dg22KhS2ZPSEHaqKDo
 Ответы:

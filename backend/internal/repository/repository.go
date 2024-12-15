@@ -1,11 +1,11 @@
 package repository
 
 import (
-	"database/sql"
+	"github.com/jmoiron/sqlx"
 	"github.com/katenester/Web_chat2/backend/internal/models"
-	"github.com/katenester/Web_chat2/backend/internal/repository/sqllite/auth"
-	"github.com/katenester/Web_chat2/backend/internal/repository/sqllite/chat"
-	"github.com/katenester/Web_chat2/backend/internal/repository/sqllite/message"
+	"github.com/katenester/Web_chat2/backend/internal/repository/postgres/auth"
+	"github.com/katenester/Web_chat2/backend/internal/repository/postgres/chat"
+	"github.com/katenester/Web_chat2/backend/internal/repository/postgres/message"
 )
 
 type Authorization interface {
@@ -29,10 +29,10 @@ type Repository struct {
 	Message
 }
 
-func NewRepository(db *sql.DB) *Repository {
+func NewRepository(db *sqlx.DB) *Repository {
 	return &Repository{
-		Authorization: auth.NewAuthSQLLite(db),
-		Chat:          chat.NewChatSQLLite(db),
-		Message:       message.NewMessageSQLLite(db),
+		Authorization: auth.NewAuthPostgres(db),
+		Chat:          chat.NewChatPostgres(db),
+		Message:       message.NewMessagePostgres(db),
 	}
 }
