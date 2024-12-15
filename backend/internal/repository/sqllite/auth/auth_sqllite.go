@@ -1,30 +1,31 @@
 package auth
 
 import (
-	"github.com/jmoiron/sqlx"
+	"database/sql"
 	"github.com/katenester/Web_chat2/backend/internal/models"
-	"github.com/katenester/Web_chat2/backend/internal/repository/postgres/config"
+	"github.com/katenester/Web_chat2/backend/internal/repository/sqllite/config"
+	"time"
 )
 
-type AuthPostgres struct {
-	db *sqlx.DB
+type AuthSQLLite struct {
+	db *sql.DB
 }
 
-func NewAuthPostgres(db *sqlx.DB) *AuthPostgres {
-	return &AuthPostgres{db}
+func NewAuthSQLLite(db *sql.DB) *AuthSQLLite {
+	return &AuthSQLLite{db}
 }
 
-func (a *AuthPostgres) CreateUser(user models.User) error {
+func (a *AuthSQLLite) CreateUser(user models.User) error {
 	// Вставляем нового пользователя в базу данных
-	query := `INSERT INTO ` + config.UsersTable + ` (username, password) VALUES (?, ?)`
-	_, err := a.db.Exec(query, user.Username, user.Password)
+	query := `INSERT INTO ` + config.UsersTable + ` (username, password, created_at) VALUES (?, ?, ?)`
+	_, err := a.db.Exec(query, user.Username, user.Password, time.Now())
 	// Если возникает ошибка (например уникальности) (ошибка вставки), возвращаем кастомную ошибку
 	if err != nil {
 		return err
 	}
 	return nil
 }
-func (a *AuthPostgres) GetUser(username, password string) (models.User, error) {
+func (a *AuthSQLLite) GetUser(username, password string) (models.User, error) {
 	var user models.User
 	// Запрос для поиска пользователя по имени
 	query := `SELECT id, username, password FROM ` + config.UsersTable + ` WHERE username = ?`
