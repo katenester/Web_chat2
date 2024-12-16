@@ -16,7 +16,7 @@ func NewHandler(service *service.Service) *Handler {
 
 func (h *Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
-	publicPath := filepath.Join(".", "frontend")
+	publicPath := filepath.Join(".", "fronted")
 	router.StaticFile("/", filepath.Join(publicPath, "index.html"))
 	auth := router.Group("/auth")
 	{
