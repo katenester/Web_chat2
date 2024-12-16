@@ -1,59 +1,45 @@
+// Получаем элементы формы
 const registerForm = document.getElementById('register-form');
+const usernameInput = document.getElementById('username');
+const passwordInput = document.getElementById('password');
+const emailInput = document.getElementById('email');
 
-const registerUser = async (event) => {
-  event.preventDefault();
-
-  const name = document.getElementById('username').value;
-  const password = document.getElementById('password').value;
-  const email = document.getElementById('email').value;
-
-  let reason;
-
-  reason = isValidName(name);
-  if (reason) {
-    alert('Login failed: ' + reason);
-    return;
-  }
-  reason = isValidPassword(password);
-  if (reason) {
-    alert('Login failed: ' + reason);
-    return;
-  }
-
-  const data = {
-    name,
-    password,
-  };
-
-  if (email) {
-    reason = isValidPassword(email);
-    if (reason) {
-      alert('Login failed: ' + reason);
-      return;
-    }
-    data.email = email;
-  }
-
+// Функция для регистрации нового пользователя
+const registerUser = async (username, password, email) => {
   try {
-    const resp = await fetch(`/api/register`, {
+    const response = await fetch('/auth/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ username, password, email }),
     });
 
-    if (resp.ok) {
-      alert('Registration successful!');
-      window.location.href = '/login';
+    if (response.ok) {
+      const data = await response.json();
+      alert(data.message); // Показываем сообщение об успехе
+      window.location.href = '/login'; // Перенаправляем на страницу входа
     } else {
-      const errorText = await resp.text();
-      alert('Registration failed: ' + errorText);
+      const errorData = await response.json();
+      alert(errorData.message); // Показываем сообщение об ошибке
     }
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Ошибка регистрации:', error);
     alert('An error occurred during registration.');
   }
 };
 
-registerForm.addEventListener('submit', registerUser);
+// Обработчик отправки формы
+registerForm.onsubmit = (event) => {
+  event.preventDefault(); // Предотвращаем перезагрузку страницы при отправке формы
+  const username = usernameInput.value.trim();
+  const password = passwordInput.value.trim();
+  const email = emailInput.value.trim();
+  
+  // Проверяем, что имя и пароль не пустые
+  if (username && password) {
+    registerUser(username, password, email); // Вызываем функцию для регистрации
+  } else {
+    alert('Username and password are required.'); // Уведомляем, если данные не указаны
+  }
+};

@@ -1,49 +1,45 @@
-const registerForm = document.getElementById('login-form');
+// Получаем элементы формы
+const loginForm = document.getElementById('login-form');
+const usernameInput = document.getElementById('username');
+const passwordInput = document.getElementById('password');
 
-const loginUser = async (event) => {
-  event.preventDefault();
-
-  const name = document.getElementById('username').value;
-  const password = document.getElementById('password').value;
-
-  let reason;
-
-  reason = isValidName(name);
-  if (reason) {
-    alert('Login failed: ' + reason);
-    return;
-  }
-  reason = isValidPassword(password);
-  if (reason) {
-    alert('Login failed: ' + reason);
-    return;
-  }
-
-  const data = {
-    name,
-    password,
-  };
-
+// Функция для аутентификации пользователя
+const loginUser = async (username, password) => {
   try {
-    const resp = await fetch(`/api/login`, {
+    const response = await fetch('/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ username, password }),
     });
 
-    if (resp.ok) {
-      alert('Login successful!');
-      window.location.href = '/';
+    if (response.ok) {
+      const data = await response.json();
+      // Сохраняем токен в cookie или localStorage для будущих запросов
+      document.cookie = `token=${data.token}; path=/`;
+      // Перенаправляем на главную страницу
+      window.location.href = '/main-room'; // Укажите правильный путь к главной странице
     } else {
-      const errorText = await resp.text();
-      alert('Login failed: ' + errorText);
+      const errorData = await response.json();
+      alert(errorData.error); // Показываем сообщение об ошибке
     }
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Ошибка входа:', error);
     alert('An error occurred during login.');
   }
 };
 
-registerForm.addEventListener('submit', loginUser);
+// Обработчик отправки формы
+loginForm.onsubmit = (event) => {
+  event.preventDefault(); // Предотвращаем перезагрузку страницы при отправке формы
+  const username = usernameInput.value.trim();
+  const password = passwordInput.value.trim();
+  
+  // Проверяем, что поля не пустые
+  if (username && password) {
+    loginUser(username, password); // Вызываем функцию входа
+  } else {
+    alert('Username and password are required.'); // Напоминаем пользователю ввести данные
+  }
+};

@@ -1,96 +1,56 @@
+// Получаем элементы из DOM
 const loginButton = document.getElementById('login-button');
 const signupButton = document.getElementById('signup-button');
-const usernameDisplay = document.getElementById('username-display');
 const userBox = document.getElementById('user-box');
+const usernameDisplay = document.getElementById('username-display');
 const signoutLink = document.getElementById('signout-link');
 const chatSetup = document.getElementById('chat-setup');
-const chatNameInput = document.getElementById('chat-name-input');
-const createChatButton = document.getElementById('create-chat-button');
-const connectChatButton = document.getElementById('connect-chat-button');
 
-let clientName = '';
+// Функция для проверки авторизации
+const checkAuth = () => {
+    const token = getCookie('token'); // Получаем токен из cookies
 
-const authClient = async () => {
-  const cookiesName = getCookie('name');
-  if (!cookiesName) {
-    if (await updateAuthorization()) {
-      await authClient();
+    if (token) {
+        // Если токен есть, показываем информацию о пользователе
+        const username = getCookie('username'); // Получаем имя пользователя из cookies
+        usernameDisplay.textContent = username;
+        userBox.style.display = 'flex'; // Показываем информацию о пользователе
+        chatSetup.style.display = 'block'; // Показываем секцию чата
+        loginButton.style.display = 'none'; // Скрываем кнопки входа
+        signupButton.style.display = 'none'; // Скрываем кнопки регистрации
+    } else {
+        // Если токена нет, показываем кнопки логина и регистрации
+        userBox.style.display = 'none';
+        chatSetup.style.display = 'none';
+        loginButton.style.display = 'block';
+        signupButton.style.display = 'block';
     }
-    return;
-  }
-  clientName = cookiesName;
-  usernameDisplay.textContent = clientName;
-  loginButton.style.display = 'none';
-  signupButton.style.display = 'none';
-  userBox.style.display = 'flex';
-  chatSetup.style.display = 'block';
 };
 
-const signout = async () => {
-  try {
-    const resp = await fetch(`/api/signout`, {
-      method: 'POST',
-    });
-
-    if (!resp.ok) {
-      if (await updateAuthorization()) {
-        signout();
-      } else {
-        window.location.reload();
-      }
-      return;
-    }
-  } catch (error) {
-    console.error('Error:', error);
-    alert('An error occurred during signout.');
-  }
-
-  window.location.reload();
-};
-
+// Вход пользователя
 loginButton.onclick = () => {
-  window.location.href = '/login';
+    window.location.href = '/login'; // Перенаправляем на страницу входа
 };
 
+// Регистрация пользователя
 signupButton.onclick = () => {
-  window.location.href = '/signup';
+    window.location.href = '/signup'; // Перенаправляем на страницу регистрации
 };
 
-signoutLink.onclick = signout;
-
-createChatButton.onclick = async () => {
-  const chatName = chatNameInput.value.trim();
-  if (!chatName) {
-    return;
-  }
-
-  try {
-    const resp = await fetch(`/api/chats`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name: chatName }),
-    });
-
-    if (!resp.ok) {
-      const errorText = await resp.text();
-      alert('Creating chat failed: ' + errorText);
-      return;
-    }
-  } catch (error) {
-    console.error('Error:', error);
-    alert('An error occurred during creating chat.');
-  }
-
-  window.location.href = `/chats/${chatName}`;
+// Выход пользователя
+signoutLink.onclick = (e) => {
+    e.preventDefault(); // Предотвращаем переход по ссылке
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; // Удаляем токен
+    document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; // Удаляем имя пользователя тоже
+    checkAuth(); // Обновляем интерфейс
 };
 
-connectChatButton.onclick = () => {
-  const chatName = chatNameInput.value.trim();
-  if (chatName) {
-    window.location.href = `/chats/${chatName}`;
-  }
-};
+// Функция для получения cookie по имени
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
 
-authClient();
+// Проверяем авторизацию при загрузке страницы
+checkAuth();
