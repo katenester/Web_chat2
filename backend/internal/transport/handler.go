@@ -3,6 +3,7 @@ package transport
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/katenester/Web_chat2/backend/internal/service"
+	"path/filepath"
 )
 
 type Handler struct {
@@ -15,6 +16,8 @@ func NewHandler(service *service.Service) *Handler {
 
 func (h *Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
+	publicPath := filepath.Join(".", "frontend")
+	router.StaticFile("/", filepath.Join(publicPath, "index.html"))
 	auth := router.Group("/auth")
 	{
 		auth.POST("/register", h.Register)
