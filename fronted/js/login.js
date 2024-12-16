@@ -19,7 +19,7 @@ const loginUser = async (username, password) => {
       // Сохраняем токен в cookie или localStorage для будущих запросов
       document.cookie = `token=${data.token}; path=/`;
       // Перенаправляем на главную страницу
-      window.location.href = '/main-room'; // Укажите правильный путь к главной странице
+      window.location.href = '/chats'; // Укажите правильный путь к главной странице
     } else {
       const errorData = await response.json();
       alert(errorData.error); // Показываем сообщение об ошибке

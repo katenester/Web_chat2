@@ -1,3 +1,5 @@
+alert('Привет');
+
 // Получаем элементы из DOM
 const loginButton = document.getElementById('login-button');
 const signupButton = document.getElementById('signup-button');
@@ -34,7 +36,7 @@ loginButton.onclick = () => {
 
 // Регистрация пользователя
 signupButton.onclick = () => {
-    window.location.href = '/signup'; // Перенаправляем на страницу регистрации
+    window.location.href = '/register'; // Перенаправляем на страницу регистрации
 };
 
 // Выход пользователя
