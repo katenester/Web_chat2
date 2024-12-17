@@ -11,10 +11,12 @@ import (
 type Authorization interface {
 	CreateUser(user models.User) error
 	GetUser(username, password string) (models.User, error)
+	GetUserId(id int) (string, error)
+	GetUserLogin(login string) (int, error)
 }
 
 type Chat interface {
-	Create(userId int, chat models.Chat) error
+	Create(chat models.Chat) error
 	GetAll(userId int) ([]models.Chat, error)
 }
 

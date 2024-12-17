@@ -33,6 +33,13 @@ func (s *AuthService) CreateUser(user models.User) error {
 	return s.repo.CreateUser(user)
 }
 
+func (s *AuthService) GetUserId(id int) (string, error) {
+	return s.repo.GetUserId(id)
+}
+func (s *AuthService) GetUserLogin(login string) (int, error) {
+	return s.repo.GetUserLogin(login)
+}
+
 func generatePasswordHash(password string) string {
 	hash := sha1.New()
 	hash.Write([]byte(password))

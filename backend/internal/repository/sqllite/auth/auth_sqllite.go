@@ -2,6 +2,7 @@ package auth
 
 import (
 	"database/sql"
+	"fmt"
 	"github.com/katenester/Web_chat2/backend/internal/models"
 	"github.com/katenester/Web_chat2/backend/internal/repository/sqllite/config"
 	"time"
@@ -36,4 +37,36 @@ func (a *AuthSQLLite) GetUser(username, password string) (models.User, error) {
 		return user, err
 	}
 	return user, nil
+}
+
+func (a *AuthSQLLite) GetUserId(id int) (string, error) {
+	var username string
+	query := `SELECT username FROM Users WHERE id = ?`
+
+	// Выполняем запрос
+	err := a.db.QueryRow(query, id).Scan(&username)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return "", fmt.Errorf("user with id %d not found", id)
+		}
+		return "", err
+	}
+
+	return username, nil
+}
+
+func (a *AuthSQLLite) GetUserLogin(login string) (int, error) {
+	var id int
+	query := `SELECT id FROM Users WHERE username = ?`
+
+	// Выполняем запрос
+	err := a.db.QueryRow(query, login).Scan(&id)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return 0, fmt.Errorf("user with login %s not found", login)
+		}
+		return 0, err
+	}
+
+	return id, nil
 }

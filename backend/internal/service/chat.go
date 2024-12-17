@@ -13,8 +13,8 @@ func NewTodoListService(repo repository.Chat) *ChatService {
 	return &ChatService{repo: repo}
 }
 
-func (s *ChatService) Create(userId int, chat models.Chat) error {
-	return s.repo.Create(userId, chat)
+func (s *ChatService) Create(chat models.Chat) error {
+	return s.repo.Create(chat)
 }
 func (s *ChatService) GetAll(userId int) ([]models.Chat, error) {
 	return s.repo.GetAll(userId)

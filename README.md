@@ -51,11 +51,9 @@ json
 json
 [
 {
-"chat_id": 1,
 "user": "user_name"
 }
 {
-"chat_id": 2,
 "user": "user_name2"
 }
 ]
@@ -66,6 +64,9 @@ json
 
 Ответы:
 # 201 Created — чат успешно создан.
+{
+"message": "Create chats successfully"
+}
 # 400 Bad Request — если чат уже существует или user2_id не существует.
 json
 {
@@ -82,7 +83,9 @@ json
 }
 Ответы:
 # 201 Created — сообщение успешно отправлено.
-
+{
+"status": "success"
+}
 # 400 Bad Request — некорректный запрос, например, если сообщение пустое или чат не существует.
 json
 {
