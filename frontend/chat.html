@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chats</title>
+    <link rel="stylesheet" href="/static/css/chat.css" />
+</head>
+<body>
+<div class="container">
+    <h2>Your Chats</h2>
+    <ul id="chatList" class="chat-list">
+        <!-- Chats will be listed here -->
+    </ul>
+
+    <button class="create-chat-button" onclick="toggleCreateChatForm()">Create New Chat</button>
+
+    <div class="create-chat-form" id="createChatForm">
+        <input type="text" id="newChatUsername" placeholder="Enter username to start chat" required>
+        <button onclick="createChat()">Create</button>
+    </div>
+</div>
+<script src="/static/js/chat.js"></script>
+</body>
+</html>

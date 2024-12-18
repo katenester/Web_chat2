@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with User</title>
+    <link rel="stylesheet" href="/static/css/messages.css" />
+</head>
+<body>
+<div class="container">
+    <h2>Chat with <span id="chatUsername"></span></h2>
+    <div class="chat-box" id="chatBox">
+        <!-- Messages will be listed here -->
+    </div>
+    <div class="message-form">
+        <input type="text" id="messageInput" placeholder="Type your message..." required>
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+<script src="/static/js/messages.js"></script>
+</body>
+</html>
