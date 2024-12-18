@@ -130,7 +130,7 @@
                         li.textContent = `Chat with ${chat.user}`;
                         li.onclick = function() {
                             localStorage.setItem('friend', chat.user);
-                            window.location.href = `/messages/${chat.user}`;
+                            window.location.href = `/messages`;
                         };
                         chatList.appendChild(li);
                     });
@@ -171,7 +171,8 @@
         })
             .then(response => {
                     alert('Chat created successfully');
-                    window.location.href = `/messages/${username}`;
+                localStorage.setItem('friend', username);
+                window.location.href = `/messages`;
 
             })
             .catch(error => {

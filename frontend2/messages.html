@@ -98,7 +98,8 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const token = localStorage.getItem('token');
-        const username = window.location.pathname.split('/').pop();  // Get username from URL
+        const username =localStorage.getItem('friend');
+       // const username = window.location.pathname.split('/').pop();  // Get username from URL
         const chatUsernameElement = document.getElementById('chatUsername');
         const chatBox = document.getElementById('chatBox');
         const messageInput = document.getElementById('messageInput');
