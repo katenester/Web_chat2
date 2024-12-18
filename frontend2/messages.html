@@ -38,12 +38,14 @@
             margin-bottom: 10px;
             display: flex;
             flex-direction: column;
+            max-width: 80%;
         }
         .message-left {
             align-items: flex-start;
         }
         .message-right {
             align-items: flex-end;
+            margin-left: auto;
         }
         .message .sender {
             font-weight: bold;
@@ -52,7 +54,6 @@
             padding: 5px;
             border-radius: 5px;
             background-color: #f1f1f1;
-            max-width: 80%;
         }
         .message-left .content {
             background-color: #e1f7d5;
@@ -136,7 +137,7 @@
                         msgDiv.classList.add('message');
                         const isSender = msg.sender === username;
 
-                        msgDiv.classList.add(isSender ? 'message-right' : 'message-left');
+                        msgDiv.classList.add(isSender ? 'message-left' : 'message-right');
                         msgDiv.innerHTML = `
                         <span class="sender">${msg.sender}</span>
                         <span class="content">${msg.message}</span>
