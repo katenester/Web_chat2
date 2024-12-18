@@ -13,6 +13,6 @@ Clean architecture. Dependency injection. Registration and authentication. Work 
 
 ## Interface
 <a name="Main page"></a>
-![Main page](https://github.com/katenester/Web_chat2/docs/Main.jpg)
+![Main page](https://github.com/katenester/Web_chat2/docs/Main.png)
 <a name="Chat page"></a>
-![Chat page](https://github.com/katenester/Web_chat2/docs/Message.jpg)
+![Chat page](https://github.com/katenester/Web_chat2/docs/Message.png)
