@@ -43,7 +43,7 @@ json
 {
 "error": "Invalid username or password"
 }
-3. Получение списка чатов пользователя. GET /chat
+3. Получение списка чатов пользователя. GET /chats
   Заголовок 
   - Bearer Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjgxOTUwOTcsImlhdCI6MTcyODE1MTg5NywidXNlcl9pZCI6MX0.ZPqAiu0edno2Z08VEpjNfMmJ2Dg22KhS2ZPSEHaqKDo
 Ответы:
@@ -58,7 +58,7 @@ json
 }
 ]
 # 401 Unauthorized — пользователь не аутентифицирован.
-4. Создание нового чата между двумя пользователями POST /chat/:user_name
+4. Создание нового чата между двумя пользователями POST /chats/:user_name
    Заголовок
 - Bearer Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjgxOTUwOTcsImlhdCI6MTcyODE1MTg5NywidXNlcl9pZCI6MX0.ZPqAiu0edno2Z08VEpjNfMmJ2Dg22KhS2ZPSEHaqKDo
 
@@ -73,7 +73,7 @@ json
 "error": "Chat already exists or invalid user"
 }
 
-5. Отправка сообщения в чат. POST /chat/messages/:user_name
+5. Отправка сообщения в чат. POST /chats/messages/:user_name
    Заголовок
 - Bearer Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjgxOTUwOTcsImlhdCI6MTcyODE1MTg5NywidXNlcl9pZCI6MX0.ZPqAiu0edno2Z08VEpjNfMmJ2Dg22KhS2ZPSEHaqKDo
 Запрос:
@@ -93,7 +93,7 @@ json
 }
 # 401 Unauthorized — пользователь не аутентифицирован.
 
-6. Получение всех сообщений из чата. GET /chat/messages/:user_name
+6. Получение всех сообщений из чата. GET /chats/messages/:user_name
    Заголовок
 - Bearer Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjgxOTUwOTcsImlhdCI6MTcyODE1MTg5NywidXNlcl9pZCI6MX0.ZPqAiu0edno2Z08VEpjNfMmJ2Dg22KhS2ZPSEHaqKDo
 Ответы:

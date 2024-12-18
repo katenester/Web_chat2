@@ -1,4 +1,4 @@
-alert('Привет');
+
 
 // Получаем элементы из DOM
 const loginButton = document.getElementById('login-button');
@@ -31,12 +31,12 @@ const checkAuth = () => {
 
 // Вход пользователя
 loginButton.onclick = () => {
-    window.location.href = '/login'; // Перенаправляем на страницу входа
+    window.location.href = '/auth/login'; // Перенаправляем на страницу входа
 };
 
 // Регистрация пользователя
 signupButton.onclick = () => {
-    window.location.href = '/register'; // Перенаправляем на страницу регистрации
+    window.location.href = '/auth/register'; // Перенаправляем на страницу регистрации
 };
 
 // Выход пользователя

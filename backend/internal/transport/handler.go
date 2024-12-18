@@ -31,15 +31,17 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	//	c.File("./frontend2/c.html") // Страница авторизации
 	//})
 	//router.GET("/chats", func(c *gin.Context) {
-	//	c.File("./frontend2/chats.html") // Страница чатов
+	//	c.File("./frontend2/chat.html") // Страница чатов
 	//})
-	publicPath := filepath.Join(".", "frontend2")
+	//router.Static("/static", "./fronted")
+	publicPath := filepath.Join("", "frontend2")
 
 	// static
 	router.StaticFile("/", filepath.Join(publicPath, "index.html"))
 	router.StaticFile("/auth/register", filepath.Join(publicPath, "register.html"))
 	router.StaticFile("/auth/login", filepath.Join(publicPath, "login.html"))
-	router.StaticFile("/chats", filepath.Join(publicPath, "chats.html"))
+	router.StaticFile("/chat", filepath.Join(publicPath, "chat.html"))
+	router.StaticFile("/messages", filepath.Join(publicPath, "messages.html"))
 	// Группа маршрутов для аутентификации
 	auth := router.Group("/auth")
 	{
@@ -48,7 +50,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	}
 
 	// Группа маршрутов для чатов с авторизацией
-	api := router.Group("/chat", h.userIdentity)
+	api := router.Group("/api/chat", h.userIdentity)
 	{
 		api.GET("/", h.getAllChats)
 		api.POST("/:user_name", h.createChat)
